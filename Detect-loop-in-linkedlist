@@ -1,0 +1,69 @@
+public class detect_loop {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		node head = create(50);
+		  head.next = create(20);
+		  head.next.next = create(15);
+		  head.next.next.next = create(4);
+		  head.next.next.next.next = create(10);
+		 
+		  // Create a loop for testing
+		  head.next.next.next.next.next = head.next.next;
+		  node res=detectloop(head);
+		  if(res==null) {
+			  System.out.println("no");
+		  }
+		  else {
+			  System.out.println("loop exist "+ res.data);
+		  }
+		  
+		 
+		 
+	}
+	 static node create(int x){
+		  node temp=new node(x);
+		  temp.data=x;
+		  
+		  return temp;
+		}
+	 static node detectloop(node root) {
+		 if(root==null||root.next==null) {
+			 return null;
+		 }
+		 node slow=root,fast=root;
+		 slow=slow.next;
+		 fast=fast.next.next;
+		 while(fast!=null&&fast.next!=null) {
+			 if(slow==fast) {
+				 break;
+			 }
+			 fast=fast.next.next;
+			 slow=slow.next;
+		 }
+		 if(slow!=fast) {
+			 return null;
+		 }
+		 slow=root;
+		 while(slow!=fast) {
+			 slow=slow.next;
+			 fast=fast.next;
+		 }
+		 return slow;
+	 }
+	
+}
+class node{
+	
+	node next;
+	int data;
+	node(int data){
+		this.data=data;
+		next=null;
+		
+	}
+
+
+}
+
